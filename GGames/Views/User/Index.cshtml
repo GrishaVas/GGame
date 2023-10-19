@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Профиль";
+}
+
+<div class="profile-box border-r3">
+    <div class="profile-box-header">
+        Общее
+    </div>
+    <div class="profile-box-body">
+        <div class="profile-box-body-column">
+            <div class="profile-box-body-text">
+                Имя
+            </div>
+            <input type="text" id="in1" class="profile-input" value="@Context.User.Claims.Where(x=>x.Type == ClaimTypes.Name).First().Value" required disabled>
+            <label for="in1" class="profile-label-disabled">Имя</label>
+        </div>
+        <div class="profile-box-body-column">
+            <div class="profile-button border-r3">
+                <button class="default-button" onclick="elementUpdateInnerHtml(document.querySelector('.ajax-container'),'/User/ChangeName','GET',true,'',null);"></button>
+                Изменить
+            </div>
+        </div>
+    </div>
+</div>
+<div class="profile-box border-r3">
+    <div class="profile-box-header">
+        Сменить пароль
+    </div>
+    @*<form asp-controller="Account" asp-action="ChangePass" method="post" id="form">*@
+    <div class="profile-box-body">
+        <div class="profile-box-body-column">
+            <div class="profile-box-body-text">
+                Текущий пароль
+            </div>
+            <input type="password" id="in3" class="profile-input" name="password" onfocus="this.style = '';document.querySelector('#error').style.display = 'none';" required>
+            <label for="in3" class="profile-label">Текущий пароль</label>
+        </div>
+        <div class="profile-box-body-column">
+            <div class="profile-box-body-text">
+                Новый пароль
+            </div>
+            <input type="password" id="in4" class="profile-input" name="newpassword" onfocus="this.style = '';document.querySelector('#error').style.display = 'none';" required>
+            <label for="in4" class="profile-label">Новый пароль</label>
+        </div>
+        <div class="profile-box-body-column">
+            <div class="profile-box-body-text">
+                Повторно новый пароль
+            </div>
+            <input type="password" id="in5" class="profile-input" name="newpassword" onfocus="this.style = '';document.querySelector('#error').style.display = 'none';" required>
+            <label for="in5" class="profile-label">Повторно новый пароль</label>
+        </div>
+        <div class="profile-box-body-column">
+            <div class="profile-button border-r3">
+                <button class="default-button" onclick="ajaxSendRequest(new Array(document.querySelector('#in3'), document.querySelector('#in4'),document.querySelector('#in5')), document.querySelector('#error'), ajaxHandler,'/Account/ChangePass','POST',true,`password=${document.querySelector('#in3').value}&newPassword=${document.querySelector('#in4').value}&rNewPassword=${document.querySelector('#in5').value}`);"></button>
+                Сохранить
+            </div>
+        </div>
+    </div>
+    <label class="error-lbl" id="error" style="display:none;">Данные введены неверно. Пароль должен быть 8-40 символов и не может содержать знаки препинания, слешы и т.д.</label>
+</div>
+
+@section Header {
+
+}
+
+

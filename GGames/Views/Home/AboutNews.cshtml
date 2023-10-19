@@ -1,0 +1,56 @@
+﻿@model News
+
+@{
+    ViewData["Title"] = Model.Name;
+    int index = 0;
+}
+
+<div class="about-news-main-img">
+    <img class="about-news-img" src="@Model.GetHeaderImg()">
+</div>
+<div class="about-news-header">
+    @Model.Name
+</div>
+@{
+    List<NewsDescParagraph> paragraphs = Model.NewsDescParagraphs.ToList();
+    for (int i = 0; i < paragraphs.Count; i++)
+    {
+        if (paragraphs[i].Header?.ToLower() != "image")
+        {
+            <div class="about-news-row">
+                @{
+                    if (paragraphs[i].Header != null)
+                    {
+                        <div class="about-news-row-header">
+                            @paragraphs[i].Header
+                        </div>
+                    }
+                }
+
+                <div class="about-news-text">
+                    @Html.Raw(paragraphs[i].Body)
+                </div>
+            </div>
+        }
+        else
+        {
+            List<string> imgs = Model.GetDescImgs();
+            <div class="about-news-row">
+                <div class="about-news-img-container">
+                    <img class="about-news-img" src="@imgs[index]">
+                </div>
+            </div>
+            if (imgs.Count > 1 + index)
+            {
+                index++;
+            }
+
+        }
+
+    }
+}
+
+@section Header {
+
+}
+

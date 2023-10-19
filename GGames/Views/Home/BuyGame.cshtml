@@ -1,0 +1,78 @@
+﻿@{
+    Layout = null;
+}
+@model Game;
+<div class="accept-box-container">
+    <div class="change-box-bg" onclick="document.querySelector('.ajax-container').innerHTML = '';">
+    </div>
+    <div class="accept-box border-r3">
+        <div class="accept-box-header">
+            Описание покупки
+        </div>
+        <div class="accept-box-body">
+            <div class="accept-box-body-column">
+                <div class="accept-box-body-row">
+                    <div class="accept-box-row-half">
+                        <div class="accept-img-container">
+                            <img class="accept-img" src="@Model.GetMainImg()">
+                        </div>
+                    </div>
+                    <div class="accept-box-row-half">
+                        <div class="accept-box-body-column">
+                            <div class="accept-game-name">
+                                @Model.Name
+                            </div>
+                            <div class="accept-game-developer">
+                                @Model.Developer
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="accept-box-body-row">
+                    <div class="accept-box-row-half">
+                        <div class="accept-box-body-text">
+                            Цена:
+                        </div>
+                    </div>
+                    <div class="accept-box-row-half">
+                        <div class="accept-box-body-text-price">
+                            @Model.Price USD
+                        </div>
+                    </div>
+                </div>
+                <div class="accept-box-body-row">
+                    <div class="accept-box-row-half">
+                        <div class="accept-box-body-text">
+                            Итого:
+                        </div>
+                    </div>
+                    <div class="accept-box-row-half">
+                        <div class="accept-box-body-text-price">
+                            @Model.Price USD
+                        </div>
+                    </div>
+                </div>
+                <hr class="game-line">
+                <div class="accept-box-body-row">
+                    <div class="accept-box-row-half">
+                        <div class="accept-box-body-text">
+                            Вы заплатите:
+                        </div>
+                    </div>
+                    <div class="accept-box-row-half">
+                        <div class="accept-box-body-text-price">
+                            @Model.Price USD
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accept-button border-r3">
+            <a class="link-absolute" asp-controller="Home" asp-action="Payment" asp-route-gameName="@Model.Name"></a>
+            Оплата
+        </div>
+    </div>
+</div>
+

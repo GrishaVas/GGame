@@ -1,0 +1,187 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<Game>;
+<h1 class="fade" style="margin-left:1em; margin-right:1em;">Бесплатные игры</h1>
+<div class="container custom-box">
+    <div class="light-box">
+    </div>
+    <div class="ordinary-box">
+        @{
+            for (int i = 0; i < 3; i++)
+            {
+                <div class="card-different">
+                    <a class="link" asp-action="Game" asp-route-name="@Model[i].Name">
+                        <div class="content-container-different">
+                            <div class="content-image-container border-r3 margin-bottom8">
+                                <img class="content-image" src="@Model[i].GetMainImg()">
+                            </div>
+                            <span class="card-text card-text-gamename text-size20">@Model[i].Name</span>
+                            <span class="card-text card-text-studio text-size17">@Model[i].Developer</span>
+                            @{
+                                if (Model[i].Price == 0)
+                                {
+                                    <span class="card-text-price">Бесплатно</span>
+                                }
+                                else
+                                {
+                                    <span class="card-text-price">@Model[i].Price USD</span>
+                                }
+                            }
+                        </div>
+                    </a>
+                </div>
+            }
+        }
+    </div>
+
+</div>
+
+<div class="container slideshow border-r5" id="big-slideshow">
+    <div class="slideshow-element-main">
+        <img class="slideshow-element-main-image" src="@Model[4].GetSlideShowImg()">
+        <div class="slideshow-element-main-content">
+            <span class="slideshow-element-main-content-text">@Model[4].Name</span>
+            <a class="button" asp-action="Game" asp-route-name="@Model[4].Name">Перейти к игре</a>
+        </div>
+    </div>
+    <div class="slideshow-elements">
+        <div class="slideshow-element-current" data-slide-image="@Model[4].GetSlideShowImg()" data-game-name="@Model[4].Name">
+            <div class="slideshow-element-image-container">
+                <div class="slideshow-content-image-container border-r3">
+                    <img class="content-image" src="@Model[4].GetMainImg()">
+                </div>
+            </div>
+            <div class="slideshow-element-text">
+                <span>@Model[4].Name</span>
+            </div>
+        </div>
+        @{
+            for (int i = 0; i < 4; i++)
+            {
+                <div class="slideshow-element" data-slide-image="@Model[i].GetSlideShowImg()" data-game-name="@Model[i].Name">
+                    <div class="slideshow-element-image-container">
+                        <div class="slideshow-content-image-container border-r3">
+                            <img class="content-image" src="@Model[i].GetMainImg()">
+                        </div>
+                    </div>
+                    <div class="slideshow-element-text">
+                        <span>@Model[i].Name</span>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+</div>
+
+<div class="container" id="short-slideshow">
+    <div class="short-slideshow">
+        <div class="short-slideshow-container">
+            <div class="short-slideshow-elements">
+                <div class="short-slideshow-element">
+                    <img class="short-slideshow-image" src="@Model[0].GetSlideShowImg()">
+                    <div class="short-slideshow-element-main-content">
+                        <span class="short-slideshow-element-main-content-text">@Model[0].Name</span>
+                        <a class="short-slideshow-button" asp-action="Game" asp-route-name="@Model[0].Name">Перейти к игре</a>
+                    </div>
+                </div>
+                <div class="short-slideshow-element">
+                    <img class="short-slideshow-image" src="@Model[1].GetSlideShowImg()">
+                    <div class="short-slideshow-element-main-content">
+                        <span class="short-slideshow-element-main-content-text">@Model[1].Name</span>
+                        <a class="short-slideshow-button" asp-action="Game" asp-route-name="@Model[1].Name">Перейти к игре</a>
+                    </div>
+                </div>
+                <div class="short-slideshow-element">
+                    <img class="short-slideshow-image" src="@Model[2].GetSlideShowImg()">
+                    <div class="short-slideshow-element-main-content">
+                        <span class="short-slideshow-element-main-content-text">@Model[2].Name</span>
+                        <a class="short-slideshow-button" asp-action="Game" asp-route-name="@Model[2].Name">Перейти к игре</a>
+                    </div>
+                </div>
+                <div class="short-slideshow-element">
+                    <img class="short-slideshow-image" src="@Model[3].GetSlideShowImg()">
+                    <div class="short-slideshow-element-main-content">
+                        <span class="short-slideshow-element-main-content-text">@Model[3].Name</span>
+                        <a class="short-slideshow-button" asp-action="Game" asp-route-name="@Model[3].Name">Перейти к игре</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="short-slideshow-points">
+            <div class="point active">
+            </div>
+            <div class="point">
+            </div>
+            <div class="point">
+            </div>
+            <div class="point">
+            </div>
+        </div>
+    </div>
+</div>
+<h1 class="fade" style="margin-left:1em; margin-right:1em;">Популярные игры</h1>
+<div class="container card-container border-r5" id="small-card-container">
+    @{
+        for (int i = 0; i < 5; i++)
+        {
+            <div class="card">
+                <a class="link" asp-action="Game" asp-route-name="@Model[i].Name">
+                    <div class="content-image-container border-r3">
+                        <img class="content-image" src="@Model[i].GetMainImg()">
+                    </div>
+                    <div class="card-bottomtext">
+                        <span class="card-text card-text-gamename">@Model[i].Name</span>
+                        <span class="card-text card-text-studio">@Model[i].Developer</span>
+                        @{
+                            if (Model[i].Price == 0)
+                            {
+                                <span class="card-text-price">Бесплатно</span>
+                            }
+                            else
+                            {
+                                <span class="card-text-price">@Model[i].Price USD</span>
+                            }
+                        }
+                    </div>
+                </a>
+            </div>
+        }
+    }
+</div>
+<h1 class="fade" style="margin-left:1em; margin-right:1em;">Популярные игры жанра приключение</h1>
+<div class="container card-container border-r5" id="big-card-container">
+    @{
+        for (int i = 0; i < 5; i++)
+        {
+            <div class="card">
+                <a class="link" asp-action="Game" asp-route-name="@Model[i].Name">
+                    <div class="content-image-container border-r3">
+                        <img class="content-image" src="@Model[i].GetMainImg()">
+                    </div>
+                    <div class="card-bottomtext">
+                        <span class="card-text card-text-gamename">@Model[i].Name</span>
+                        <span class="card-text card-text-studio">@Model[i].Developer</span>
+                        @{
+                            if (Model[i].Price == 0)
+                            {
+                                <span class="card-text-price">Бесплатно</span>
+                            }
+                            else
+                            {
+                                <span class="card-text-price">@Model[i].Price USD</span>
+                            }
+                        }
+                    </div>
+                </a>
+            </div>
+        }
+    }
+</div>
+
+@section Header {
+    <div class="container margin-bottom-200">
+        <div class="site-header fade"><div style="width:min-content;">GGames</div></div>
+    </div>
+}

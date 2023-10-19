@@ -1,0 +1,146 @@
+﻿@model List<Game>
+@{
+    List<GameCategory>? categories = (List<GameCategory>?)ViewData["Categories"];
+}
+
+<div class="container shop-columns">
+
+    <div class="shop-column-filters">
+        <input type="text" class="search" placeholder="Поиск" />
+        <h3 class="shop-heading">Фильтры</h3>
+        <div class="shop-pull-down-menu">
+            <div class="shop-pull-down-menu-name">
+                <button class="shop-button" onclick="">
+                </button>
+                <div class="shop-pull-down-menu-name-text">
+                    Цена
+                </div>
+                <svg class="shop-pull-down-menu-picture">
+                    <path d="M 10,30 L 40,30 L 25,40 Z" fill="grey" stroke="wihte"></path>
+                </svg>
+            </div>
+
+            <div class="shop-pull-down-menu-items">
+                <input type="radio" name="price" id="input1" class="defalult-radiobutton" data-filter="price=0"
+                       onclick="clickRadio(this);">
+                <div class="shop-pull-down-menu-item">
+                    <label for="input1" class="shop-pull-down-menu-item-text">Бесплатно</label>
+                </div>
+                <input type="radio" name="price" id="input2" class="defalult-radiobutton" data-filter="price=<50"
+                       onclick="clickRadio(this);">
+                <div class="shop-pull-down-menu-item">
+                    <label for="input2" class="shop-pull-down-menu-item-text">До 50 USD</label>
+                </div>
+                <input type="radio" name="price" id="input3" class="defalult-radiobutton" data-filter="price=<100"
+                       onclick="clickRadio(this);">
+                <div class="shop-pull-down-menu-item">
+                    <label for="input3" class="shop-pull-down-menu-item-text">До 100 USD</label>
+                </div>
+                <input type="radio" name="price" id="input4" class="defalult-radiobutton" data-filter="price=>100"
+                       onclick="clickRadio(this);">
+                <div class="shop-pull-down-menu-item">
+                    <label for="input4" class="shop-pull-down-menu-item-text">100 USD и выше</label>
+                </div>
+            </div>
+        </div>
+        <div class="shop-pull-down-menu">
+            <div class="shop-pull-down-menu-name">
+                <button class="shop-button" onclick="">
+                </button>
+                <div class="shop-pull-down-menu-name-text">
+                    Категория
+                </div>
+                <svg class="shop-pull-down-menu-picture">
+                    <path d="M 10,30 L 40,30 L 25,40 Z" fill="grey" stroke="wihte"></path>
+                </svg>
+            </div>
+            <div class="shop-pull-down-menu-items">
+                @{
+                    foreach (var item in categories)
+                    {
+                        <input type="radio" name="filter2" id="@item.Id" class="defalult-radiobutton" data-filter="category=@item.CategoryName"
+                               onclick="clickRadio(this);">
+                        <div class="shop-pull-down-menu-item">
+                            <label for="@item.Id" class="shop-pull-down-menu-item-text">@item.CategoryName</label>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        <div class="shop-pull-down-menu">
+            <div class="shop-pull-down-menu-name">
+                <button class="shop-button" onclick="">
+                </button>
+                <div class="shop-pull-down-menu-name-text">
+                    Платформа
+                </div>
+                <svg class="shop-pull-down-menu-picture">
+                    <path d="M 10,30 L 40,30 L 25,40 Z" fill="grey" stroke="wihte"></path>
+                </svg>
+            </div>
+
+            <div class="shop-pull-down-menu-items">
+                <input type="radio" name="filter3" id="input5" class="defalult-radiobutton" data-filter="platform=Windows"
+                onclick="clickRadio(this);">
+                <div class="shop-pull-down-menu-item">
+                    <label for="input5" class="shop-pull-down-menu-item-text">Windows</label>
+                </div>
+                <input type="radio" name="filter3" id="input6" class="defalult-radiobutton" data-filter="platform=MacOS"
+                onclick="clickRadio(this);">
+                <div class="shop-pull-down-menu-item">
+                    <label for="input6" class="shop-pull-down-menu-item-text">Mac OS</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="shop-column-filters-short">
+        <button class="shop-button"
+        onclick="changeElDisplay(document.querySelector('.shop-short-filter-container'),'flex');">
+        </button>
+        Фильтры
+    </div>
+    <div class="shop-column-games">
+        <div class="shop-container card-container border-r5" id="big-card-container">
+            @{
+                int gamesCount;
+                if (Model.Count > 10)
+                {
+                    gamesCount = 10;
+                }
+                else gamesCount = Model.Count;
+                for (int i = 0; i < gamesCount; i++)
+                {
+                    <div class="card">
+                        <a class="link" asp-action="Game" asp-route-name="@Model[i].Name">
+                            <div class="content-image-container border-r3">
+                                <img class="content-image" src="@Model[i].GetMainImg()">
+                            </div>
+                            <div class="card-bottomtext">
+                                <span class="card-text card-text-gamename">@Model[i].Name</span>
+                                <span class="card-text card-text-studio">@Model[i].Developer</span>
+                                @{
+                                    if (Model[i].Price == 0)
+                                    {
+                                        <span class="card-text-price">Бесплатно</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="card-text-price">@Model[i].Price USD</span>
+                                    }
+                                }
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+
+        <div class="shop-container shop-button-load-more" onclick="this.style.display='none';">
+            <button class="shop-button">
+            </button>
+            <div class="shop-button-load-more-text">Загрузить все</div>
+        </div>
+    </div>
+</div>
+@section Header {
+}

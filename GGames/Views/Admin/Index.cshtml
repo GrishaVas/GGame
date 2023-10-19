@@ -1,0 +1,110 @@
+﻿@{
+    Layout = null;
+}
+@model GGamesDBContext 
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <title>Index</title>
+</head>
+<body>
+
+    @{
+        string str = ViewData["Table"].ToString();
+        Type tModel = typeof(GGamesDBContext).GetProperty(str).PropertyType;
+        System.Reflection.PropertyInfo[] props = tModel.GetGenericArguments()[0].GetProperties();
+
+        <br />
+        <input type="submit" form="Add" value="Add"/>
+        <input type="submit" form="Delete" value="Delete" />
+        <form id="Delete" asp-asp-controller="Admin" asp-action="Add" asp-route-table=@str method="post">
+            <select name="id">
+                @{
+                    IQueryable<object> objects = (IQueryable<object>)typeof(GGamesDBContext).GetProperty(str).GetValue(Model);
+                    foreach (var item in objects)
+                    {
+                        <option value=@props[0].GetValue(item)>@props[0].GetValue(item)</option>
+                    }
+                }
+            </select>
+        </form>
+
+        <form id="Add" asp-asp-controller="Admin" asp-action="Add" asp-route-table=@str method="post">
+                <table>
+                        <tr>
+                            @{
+                                for (int i = 0; i < props.Length; i++)
+                                {
+                                    if (props[i].PropertyType.Name == "ICollection`1")
+                                    {
+                                        <td>
+                                            <select name="parameters">
+                                                @{
+                                                    <option value="">null</option>
+                                                    object obj = typeof(GGamesDBContext).GetProperty(props[i].Name).GetValue(Model);
+                                                    System.Reflection.PropertyInfo[] propertyInfos = obj.GetType().GetGenericArguments()[0].GetProperties();
+                                                    System.Reflection.PropertyInfo propertyInfo = propertyInfos.Where(x => Attribute.GetCustomAttribute(x,typeof(AdminName))!=null).First();
+                                                    foreach (var item in (IQueryable<object>)obj)
+                                                    {
+                                                        <option value=@propertyInfo.GetValue(item)>@propertyInfo.GetValue(item)</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                    <input placeholder="@props[i].Name" name="parameters" />
+                                        </td>
+                                    }
+                                }
+                            }
+
+                        </tr>
+                    <tr>
+                    @{
+                        for (int i = 0; i < props.Length; i++)
+                        {
+                                <td>@props[i].Name</td>
+                        }
+                    }
+                    </tr>
+                    @{
+                        object o = typeof(GGamesDBContext).GetProperty(str).GetValue(Model);
+                                foreach (var item in (IQueryable<object>)o)
+                                {
+                                    <tr>
+                                        @{
+                                            for (int i = 0; i < props.Length; i++)
+                                            {
+                                                if (props[i].PropertyType.Name != "ICollection`1")
+                                                {
+                                                    <td>@props[i].GetValue(item)</td>
+                                                }else
+                                                {
+                                                    ////ICollection<object> or = (ICollection<object>)props[i].GetValue(item);
+                                                    //IEnumerable<object> or = (IEnumerable<object>)props[i].GetValue(item);
+                                                    //<td>
+                                                    //    @{
+                                                    //        foreach (var it in or)
+                                                    //        {
+                                                    //            <text>@or.GetType().GetGenericArguments()[0].GetProperty("Id").GetValue(it).ToString(), </text>
+                                                    //        }
+                                                    //    }
+                                                    //</td>
+                                                }
+                                            }
+                                        }
+                                    </tr>
+                                }                
+                    }
+                </table>
+        </form>
+    }
+</body>
+</html>

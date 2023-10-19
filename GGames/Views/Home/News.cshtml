@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Новости";
+}
+@model List<News>
+
+@{
+    <div class="news">
+        @foreach (var item in Model)
+        {
+            <div class="news-row fade">
+                <div class="news-img-container border-r3">
+                    <img class="news-img"
+                         src="@item.GetMainImg()">
+                </div>
+                <div class="news-body">
+                    <div class="news-header">
+                        @item.Name
+                    </div>
+                    <div class="news-text">
+                        Подробнее
+                    </div>
+                </div>
+                <a class="link news-link" asp-controller="Home" asp-action="AboutNews" asp-route-name="@item.Name"></a>
+            </div>
+        }
+    </div>
+}
+
+@section Header {
+
+}

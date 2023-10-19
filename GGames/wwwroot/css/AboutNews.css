@@ -1,0 +1,35 @@
+.about-news-main-img{
+    position: relative;
+    width: 80%;
+    overflow: hidden;
+    margin: 3em;
+}
+.about-news-header{
+    position: relative;
+    margin-bottom: 3em;
+    width: 70%
+}
+.about-news-row{
+    position: relative;
+    width: 70%;
+    margin-bottom: 2em;
+}
+.about-news-row-header{
+    position: relative;
+    font-weight: 600;
+    margin-bottom:1em;
+}
+.about-news-text{
+    position: relative;
+    line-height:1.4em;
+    font-weight: 200;
+}
+.about-news-img-container{
+    position: relative;
+    overflow: hidden;
+    width:100%
+}
+.about-news-img{
+    position: relative;
+    width: 100%;
+}

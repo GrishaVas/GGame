@@ -1,0 +1,100 @@
+.change-box-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.change-box-container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    background: rgb(0, 0, 0,0.5);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.change-box {
+    position: relative;
+    background: white;
+    padding: 5%;
+    margin-bottom: 3em;
+    top: 65px;
+}
+
+.change-box-header{
+    position: relative;
+    font-size:30px;
+    margin-bottom: 2em;
+}
+.change-box-body{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.change-box-body-row{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2em;
+}
+.change-box-body-column{
+    position: relative;
+    margin-bottom: 2em;
+    width:90%;
+}
+.change-box-row-half {
+    position: relative;
+    margin-right: 2em;
+    margin-bottom: 2em;
+    width: 100%;
+}
+.change-box-body-text{
+    position: relative;
+    font-size:18px;
+    margin-bottom: 0.5em;
+}
+.change-input {
+    position: relative;
+    height: 2em;
+    padding-left: 10px;
+    padding-top: 1em;
+    border-style: solid;
+    border-radius: 3px;
+    width:100%;
+}
+.change-input:disabled{
+    cursor:not-allowed;
+}
+.change-label{
+    position: absolute;
+    top:40px;
+    left: 1em;
+    transition:0.5s;
+    color:rgb(187, 187, 187); 
+}
+.change-input:disabled+.change-label{
+    cursor:not-allowed;
+}
+.change-input+.change-label{
+    cursor:text;
+}
+.change-input:focus, .change-input:valid {
+    border-color: black;
+}
+.change-input:focus+.change-label, .change-input:valid+.change-label{
+    top:35px;
+    font-size: 10px;
+}
+.change-button{
+    position: relative;
+    padding:0.6em;
+    background: rgb(81, 81, 81);
+    width: fit-content;
+    transition:0.2s;
+    color:rgb(187, 187, 187); 
+}
+.change-button:hover{
+    background: rgb(154, 154, 154);
+}

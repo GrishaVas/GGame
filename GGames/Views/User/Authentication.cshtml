@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Вход";
+}
+
+<div class="login-box border-r3">
+    <div class="login-box-header">
+        Вход
+    </div>
+
+    <div class="login-box-body">
+        @*<form asp-controller="Account" asp-action="CheckUser" method="post">*@
+        <div class="login-box-body-column">
+            <div class="login-box-row-half">
+                <div class="login-box-body-text">
+                    Имя
+                </div>
+                <input type="text" id="in1" class="login-input" name="name" autocomplete="off" onfocus="this.style = ''; document.querySelector('#error').style.display = 'none';" required>
+                <label for="in1" class="login-label">Имя</label>
+            </div>
+
+            <div class="login-box-row-half">
+                <div class="login-box-body-text">
+                    Пароль
+                </div>
+                <input type="password" id="in2" class="login-input" name="password" onfocus="this.style = ''; document.querySelector('#error').style.display = 'none';" required>
+                <label for="in2" class="login-label">Пароль</label>
+            </div>
+            <label class="error-lbl" id="error" style="display:none;">Данные введены неверно</label>
+        </div>
+        <div class="login-button border-r3">
+            @*<button class="default-button" type="submit"></button>*@
+            <button class="default-button" onclick="ajaxSendRequest(new Array(document.querySelector('#in1'), document.querySelector('#in2')), document.querySelector('#error'), ajaxHandler, '/User/Login', 'POST', true, `Name=${document.querySelector('#in1').value}&Password=${document.querySelector('#in2').value}`);"></button>
+            Войти
+        </div>
+        <div class="login-box-body-text-registration">
+            <a asp-controller="User" asp-action="Registration" style="color:black;">Зарегистроваться</a>
+        </div>
+        @*</form>*@
+    </div>
+
+</div>
+@section Header {
+
+}

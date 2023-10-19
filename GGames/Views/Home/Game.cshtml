@@ -1,0 +1,213 @@
+﻿@using GGames.Models.DBModels;
+@model Game
+@{
+    ViewData["Title"] = Model.Name;
+    GGamesDBContext db = (GGamesDBContext)ViewData["DBContext"];
+}
+
+<div class="gallery">
+    <div class="gallery-center">
+        <div class="gallery-items" style="transform: translateX(0px);">
+            @{
+                foreach (var image in Model.GetGallery())
+                {
+                    <div class="gallery-item" style="transform: translateX(0%);">
+                        <img class="gallery-img" src="@image">
+                    </div>
+                }
+            }
+        </div>
+        <div class="gallery-arrow" style="right:10px;">
+            <button class="gallery-button" onclick="galleryNext(document.querySelector('.gallery-items'));">
+                <svg class="gallery-picture">
+                    <path d="M 37,25 L 17,5 L 17,45 Z" fill="white" stroke="wihte"></path>
+                </svg>
+                <div class="gallery-arrow-bg">
+                </div>
+            </button>
+        </div>
+        <div class="gallery-arrow" style="left: 10px;">
+            <button class="gallery-button" onclick="galleryPred(document.querySelector('.gallery-items'));">
+                <svg class="gallery-picture">
+                    <path d="M 13,25 L 33,5 L 33,45 Z" fill="white" stroke="wihte"></path>
+                </svg>
+                <div class="gallery-arrow-bg">
+                </div>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="game-header">
+    <img class="game-header-img" src="@Model.GetIcon()">
+    <div class="game-header-container-for-line">
+        <div class="game-header-container">
+            <div class="game-header-description fade">
+                @Model.DescParag
+            </div>
+            <div class="game-header-buy">
+                <div class="game-header-buy-price fade">
+                    @{
+                        if (Model.Price == 0)
+                        {
+                            <span class="card-text-price">Бесплатно</span>
+                        }
+                        else
+                        {
+                            <span class="card-text-price">@Model.Price USD</span>
+                        }
+                    }
+                </div>
+
+
+                @{
+                    if (Context.User.Claims.Count() != 0)
+                    {
+                        List<User> users = db.Users.Include(x => x.Games).ToList();
+                        string userName = Context.User.Claims.Where(x => x.Type == ClaimTypes.Name).First().Value;
+                        if (users!=null && !users.Where(x => x.Name == userName).First().Games.Where(x => x.Name == Model.Name).Any())
+                        {
+                            string str = "\'";
+                            string newStr = "\\'";
+                            string param = $"name={Model.Name.Replace(str, newStr)}";
+                            <div class="game-header-buy-btn fade">
+                                <div class="game-header-buy-btn-text">Купить</div>
+                                <button class="default-button" onclick="elementUpdateInnerHtml(document.querySelector('.ajax-container'),'/Home/BuyGame','POST',true,'@param');"></button>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="game-header-buy-btn fade btn-disabled">
+                                <div class="game-header-buy-btn-text">Приобретено</div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="game-header-buy-btn fade">
+                            <div class="game-header-buy-btn-text">Купить</div>
+                            <a class="link-absolute" asp-controller="User" asp-action="Authentication"></a>
+                        </div>
+                    }
+                }
+
+
+            </div>
+        </div>
+        <hr class="game-line">
+    </div>
+</div>
+
+<div class="game-description-container">
+    <div class="game-description-name">
+        Об игре
+    </div>
+    <div class="game-description">
+        <h3 class="game-description-heading game-description-short-name">Об игре</h3>
+        <div class="game-description-row">
+            <div class="game-description-items-conteiner">
+                <div class="game-description-DPDP-item">
+                    <label class="game-description-label">Разработчик</label>
+                    <div class="game-description-text">@Model.Developer</div>
+                </div>
+                <div class="game-description-DPDP-item">
+                    <label class="game-description-label">Издатель</label>
+                    <div class="game-description-text">@Model.Publisher</div>
+                </div>
+                <div class="game-description-DPDP-item">
+                    <label class="game-description-label">Дата выхода</label>
+                    <div class="game-description-text">@Model.Date</div>
+                </div>
+                <div class="game-description-DPDP-item">
+                    <label class="game-description-label">Платформа</label>
+                    <div class="game-description-text">@Model.Platform</div>
+                </div>
+            </div>
+        </div>
+        <div class="game-description-row">
+            <div class="game-description-paragraph fade">
+                @Html.Raw(Model.Description)
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="game-description-container">
+    <div class="game-description-name">
+        Системные требования
+    </div>
+    <div class="game-description">
+        <h3 class="game-description-heading game-description-short-name">Системные требования</h3>
+        <div class="game-description-row">
+            <div class="game-description-items-conteiner">
+                <div class="game-description-requirements-column">
+                    <h3 class="game-description-heading">Минимальные</h3>
+                    @{
+                        GameRequirements requirements = Model.GetRequirements("Min");
+
+                        <div class="game-description-requirements-column-item">
+                            <label class="game-description-label">Платформа</label>
+                            <div class="game-description-text">@requirements.OS</div>
+                        </div>
+
+                        <div class="game-description-requirements-column-item">
+                            <label class="game-description-label">Видеокарта</label>
+                            <div class="game-description-text">@requirements.GraphicsCard</div>
+                        </div>
+
+                        <div class="game-description-requirements-column-item">
+                            <label class="game-description-label">Память</label>
+                            <div class="game-description-text">@requirements.Memory</div>
+                        </div>
+
+                        <div class="game-description-requirements-column-item">
+                            <label class="game-description-label">Процессор</label>
+                            <div class="game-description-text">@requirements.Processor</div>
+                        </div>
+
+                        <div class="game-description-requirements-column-item">
+                            <label class="game-description-label">Оперативная память</label>
+                            <div class="game-description-text">@requirements.Ram</div>
+                        </div>
+                    }
+                </div>
+                <div class="game-description-requirements-column">
+                    <h3 class="game-description-heading">Рекомендуемые</h3>
+                    @{
+                        requirements = Model.GetRequirements("Rec");
+                        <div class="game-description-requirements-column-item">
+                            <label class="game-description-label">Платформа</label>
+                        <div class="game-description-text">@requirements.OS</div>
+                        </div>
+
+                        <div class="game-description-requirements-column-item">
+                            <label class="game-description-label">Видеокарта</label>
+                        <div class="game-description-text">@requirements.GraphicsCard</div>
+                        </div>
+
+                        <div class="game-description-requirements-column-item">
+                            <label class="game-description-label">Память</label>
+                        <div class="game-description-text">@requirements.Memory</div>
+                        </div>
+
+                        <div class="game-description-requirements-column-item">
+                            <label class="game-description-label">Процессор</label>
+                        <div class="game-description-text">@requirements.Processor</div>
+                        </div>
+
+                        <div class="game-description-requirements-column-item">
+                            <label class="game-description-label">Оперативная память</label>
+                        <div class="game-description-text">@requirements.Ram</div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Header {
+    <div class="container">
+        <span class="site-header fade">@Model.Name</span>
+    </div>
+}

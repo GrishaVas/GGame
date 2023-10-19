@@ -1,0 +1,91 @@
+.profile-box{
+    position: relative;
+    background: white;
+    padding: 5%;
+    margin-bottom:3em;
+}
+.profile-box-header{
+    position: relative;
+    font-size:30px;
+    margin-bottom: 2em;
+}
+.profile-box-body{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width:100%;
+}
+.profile-box-body-row{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2em;
+}
+.profile-box-body-column {
+    position: relative;
+    margin-bottom: 2em;
+}
+.profile-box-row-half{
+    position: relative;
+    margin-right: 2em;
+}
+.profile-box-body-text {
+    position: relative;
+    font-size: 18px;
+    margin-bottom: 0.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    white-space: nowrap;
+    width: 100%;
+}
+.profile-input {
+    position: relative;
+    height: 2em;
+    padding-left: 10px;
+    padding-top: 1em;
+    border-style: solid;
+    border-radius: 3px;
+}
+.profile-input:disabled{
+    cursor:not-allowed;
+}
+.profile-label-disabled {
+    position: absolute;
+    left: 1em;
+    top: 35px;
+    font-size: 10px;
+}
+.profile-label {
+    position: absolute;
+    top: 40px;
+    left: 1em;
+    transition: 0.5s;
+    color: rgb(184, 184, 184);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    white-space: nowrap;
+    width:100%;
+}
+.profile-input:disabled+.profile-label{
+    cursor:not-allowed;
+}
+.profile-input+.profile-label{
+    cursor:text;
+}
+.profile-input:focus+.profile-label, .profile-input:valid+.profile-label{
+    top:35px;
+    font-size: 10px;
+}
+.profile-button{
+    position: relative;
+    padding:0.6em;
+    background: rgb(81, 81, 81);
+    width: fit-content;
+    transition:0.2s;
+    color:rgb(187, 187, 187); 
+}
+.profile-button:hover{
+    background: rgb(154, 154, 154);
+}

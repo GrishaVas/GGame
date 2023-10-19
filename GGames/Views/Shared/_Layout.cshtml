@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - GGames</title>
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+    @*<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />*@
+    @*<link rel="stylesheet" href="~/GGames.styles.css" asp-append-version="true" />*@
+    <link rel="stylesheet" href="~/css/aboutGameCss.css" />
+    <link rel="stylesheet" href="~/css/Animations.css" />
+    <link rel="stylesheet" href="~/css/Classes.css" />
+    <link rel="stylesheet" href="~/css/media.css" />
+    <link rel="stylesheet" href="~/css/Objects.css" />
+    <link rel="stylesheet" href="~/css/Shop.css" />
+    <link rel="stylesheet" href="~/css/News.css" />
+    <link rel="stylesheet" href="~/css/AboutNews.css" />
+    <link rel="stylesheet" href="~/css/Profile.css" />
+    <link rel="stylesheet" href="~/css/Login.css" />
+    <link rel="stylesheet" href="~/css/Change.css" />
+    <link rel="stylesheet" href="~/css/Accept.css" />
+</head>
+<body>
+    @*<fieldset id="fields">*@
+    <div class="top-panel">
+        <div class="menu">
+            <div class="menu-item-container">
+                <input type="radio" id="Input1" name="MainMenu" class="defalult-radiobutton">
+                <svg class="menu-item-line">
+                    <line class="menu-item-line-paint" x1="0" y1="0" x2="200" y2="0" stroke="white" />
+                </svg>
+                <a asp-controller="Home" asp-action="Index" class="menu-item">
+                    <p class="menu-item-text">Главная</p>
+                </a>
+            </div>
+
+            <div class="menu-item-container">
+                <input type="radio" id="Input2" name="MainMenu" class="defalult-radiobutton">
+                <svg class="menu-item-line">
+                    <line x1="0" y1="0" x2="200" y2="0" stroke="white" stroke-width="10" />
+                </svg>
+                <a asp-controller="Home" asp-action="Shop" class="menu-item">
+                    <p class="menu-item-text">Магазин</p>
+                </a>
+            </div>
+
+
+            <div class="menu-item-container">
+                <input type="radio" id="Input3" name="MainMenu" class="defalult-radiobutton">
+                <svg class="menu-item-line">
+                    <line x1="0" y1="0" x2="200" y2="0" stroke="white" stroke-width="10" />
+                </svg>
+                <a asp-controller="Home" asp-action="News" class="menu-item">
+                    <p class="menu-item-text">Новости</p>
+                </a>
+
+            </div>
+
+        </div>
+        <div class="user">
+            <div class="pull-down-menu-container">
+                @{
+                    if (Context.User.Claims.Count() != 0)
+                    {
+                        <div class="pull-down-menu">
+                            <div class="click-menu">
+                                <div class="click-menu-text">
+                                    @Context.User.Claims.Where(x=>x.Type == ClaimTypes.Name).First().Value
+                                </div>
+                                <a class="link-absolute"></a>
+                            </div>
+                            <div class="pull-down-menu-items">
+                                <div class="menu-item">
+                                    Профиль
+                                    <a class="link-absolute" asp-controller="User" asp-action="Index"></a>
+                                </div>
+                                <div class="menu-item">
+                                    Выйти
+                                    <a class="link-absolute" asp-controller="User" asp-action="Logout"></a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="log-off-user">
+                    <a class="link-absolute" asp-controller="User" asp-action="Authentication"></a>
+                            Войти
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    <div class="body-site" id="body">
+        @RenderSection("Header")
+        @RenderBody()
+        <div class="ajax-container">
+        </div>
+    </div>
+    <script src="~/js/Js.js"></script>
+    @*</fieldset>*@
+</body>
+</html>

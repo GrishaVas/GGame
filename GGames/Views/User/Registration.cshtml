@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Регистрация";
+}
+
+<div class="login-box border-r3">
+    <div class="login-box-header">
+        Регистрация
+    </div>
+    <div class="login-box-body">
+        @*<form id="form" asp-action="CreateUser" method="post">*@
+        <div class="login-box-body-column">
+            <div class="login-box-row-half">
+                <div class="login-box-body-text">
+                    <span>Имя</span>
+                </div>
+                <input type="text" id="in1" class="login-input" name="name" autocomplete="off" onfocus="this.style = '';document.querySelector('#error').style.display = 'none';" required>
+                <label for="in1" class="login-label">Имя</label>
+            </div>
+
+            <div class="login-box-row-half">
+                <div class="login-box-body-text">
+                    Пароль
+                </div>
+                <input type="password" id="in2" class="login-input" name="password" onfocus="this.style = '';document.querySelector('#error').style.display = 'none';" required>
+                <label for="in2" class="login-label">Пароль</label>
+            </div>
+
+            <div class="login-box-row-half">
+                <div class="login-box-body-text">
+                    Повтор пароля
+                </div>
+                <input type="password" id="in3" class="login-input" name="password" onfocus="this.style = '';document.querySelector('#error').style.display = 'none';" required>
+                <label for="in3" class="login-label">Повтор пароля</label>
+            </div>
+            <label class="error-lbl" id="error" style="display:none;">Данные введены неверно. Имя должно быть 1-10 символов. Пароль должен быть 8-40 символов. Имя и пароль не могут содержать знаки препинания, слешы и т.д.</label>
+        </div>
+        <div class="login-button border-r3">
+            @*<button type="button" class="default-button" onclick="acceptPasswords(document.querySelector('#in2'),document.querySelector('#in3'), document.querySelector('#form'))"></button>*@
+            <button class="default-button" onclick="ajaxSendRequest(new Array(document.querySelector('#in1'), document.querySelector('#in2'),document.querySelector('#in3')), document.querySelector('#error'), ajaxHandler,'/User/CreateUser','POST',true,`Name=${document.querySelector('#in1').value}&Password=${document.querySelector('#in2').value}&rPassword=${document.querySelector('#in3').value}`);"></button>
+            Зарегистроваться
+        </div>
+        @*</form>*@
+    </div>
+</div>
+@section Header {
+
+}
+
+

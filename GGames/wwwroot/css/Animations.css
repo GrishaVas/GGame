@@ -1,0 +1,58 @@
+        @keyframes back{
+            from{
+                left: 100px;
+                opacity: 0;
+            }
+            5%{
+                opacity: 0;
+            }
+            to{
+                opacity: 1;
+                left:0px;
+            }
+        }
+        @keyframes left{
+            from{
+                opacity: 1;
+                left: 0px;
+            }
+            95%{
+                opacity: 0;
+            }
+            to{
+                opacity: 0;
+                left:-100px;
+            }
+        }
+        @keyframes text-left{
+            from{
+                left: 0px;
+                opacity: 1;
+            }
+            50%{
+                opacity: 0.8;
+                left:-20px;
+            }
+            to{
+                opacity: 0;
+                left:-50px;
+            }
+        }
+
+        @keyframes fade-down{
+            from{
+                opacity: 1;
+            }
+            to{
+                transform: translateY(-50%);
+            }
+        }
+
+        @keyframes fade-up{
+            from{
+                opacity: 1;
+            }
+            to{
+                transform: translateY(50%);
+            }
+        }

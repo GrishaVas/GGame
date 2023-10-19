@@ -1,0 +1,101 @@
+.login-box-container{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    background: rgb(0, 0, 0,0.5);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    z-index:1;
+}
+.login-box{
+    position: relative;
+    background: white;
+    margin-bottom:3em;
+}
+
+.login-box-header{
+    position: relative;
+    font-size:30px;
+    margin-bottom: 2em;
+}
+.login-box-body{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.login-box-body-row{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2em;
+}
+.login-box-body-column{
+    position: relative;
+    margin-bottom: 2em;
+    width:100%;
+}
+.login-box-row-half{
+    position: relative;
+    margin-right: 2em;
+    margin-bottom: 2em;
+    width:100%;
+}
+.login-box-body-text{
+    position: relative;
+    font-size:18px;
+    margin-bottom: 0.5em;
+}
+.login-box-body-text-registration{
+    position: relative;
+    text-decoration:none;
+    font-size:14px;
+    font-weight: 300;
+    margin-top: 2em;
+}
+.login-input {
+    position: relative;
+    height: 2em;
+    padding-left: 10px;
+    padding-top: 1em;
+    border-style: solid;
+    border-radius: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    white-space: nowrap;
+}
+.login-input:disabled{
+    cursor:not-allowed;
+}
+.login-label{
+    position: absolute;
+    top:40px;
+    left: 1em;
+    transition:0.5s;
+    color:rgb(187, 187, 187); 
+}
+.login-input:disabled+.login-label{
+    cursor:not-allowed;
+}
+.login-input+.login-label{
+    cursor:text;
+}
+.login-input:focus + .login-label, .login-input:valid + .login-label {
+    top: 35px;
+    font-size: 10px;
+}
+.login-button{
+    position: relative;
+    padding:0.6em;
+    background: rgb(81, 81, 81);
+    width: fit-content;
+    transition:0.2s;
+    color:rgb(187, 187, 187); 
+}
+.login-button:hover{
+    background: rgb(154, 154, 154);
+}

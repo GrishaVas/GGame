@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Изменение имени";
+    Layout = null;
+}
+
+<div class="change-box-container">
+    <div class="change-box-bg" onclick="document.querySelector('.ajax-container').innerHTML = '';">
+    </div>
+    <div class="change-box border-r3">
+        <div class="change-box-header">
+            Изменеть имя
+        </div>
+        <div class="change-box-body">
+            <div class="change-box-body-column">
+                <div class="change-box-row-half">
+                    <div class="change-box-body-text">
+                        Имя
+                    </div>
+                    <input type="text" name="name" id="changeIn1" class="change-input" autocomplete="off" onfocus="this.style = '';document.querySelector('#error1').style.display = 'none';" required>
+                    <label for="changeIn1" class="change-label">Имя</label>
+                </div>
+
+                <div class="change-box-row-half">
+                    <div class="change-box-body-text">
+                        Пароль
+                    </div>
+                    <input type="password" name="password" id="changeIn2" class="change-input" onfocus="this.style = '';document.querySelector('#error1').style.display = 'none';" required>
+                    <label for="changeIn2" class="change-label">Пароль</label>
+                </div>
+                <label class="error-lbl" id="error1" style="display:none;">Данные введены неверно. Имя должно быть 1-10 символов и не может содержать знаки препинания, слешы и т.д.</label>
+            </div>
+            <div class="change-button border-r3">
+                <button class="default-button" onclick="ajaxSendRequest(new Array(document.querySelector('#changeIn1'), document.querySelector('#changeIn2')), document.querySelector('#error1'), ajaxHandler,'/User/ChangeNamePost','POST',true,`password=${document.querySelector('#changeIn2').value}&newname=${document.querySelector('#changeIn1').value}`);"></button>
+                Изменить
+            </div>
+        </div>
+    </div>
+</div>
+
